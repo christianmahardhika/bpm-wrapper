@@ -92,8 +92,23 @@ func (*usecase) RecordCurrentTask(ctx context.Context, taskID int64, caseID int6
 }
 
 // StartProcess implements Usecase.
-func (*usecase) StartProcess(ctx context.Context, version string) (caseID int64, err error) {
-	panic("unimplemented")
+func (u *usecase) StartProcess(ctx context.Context, version string) (caseID int64, err error) {
+	// Check Login first to bpm
+	_, err = u.Login(ctx, u.cfg.Bonita.Username, u.cfg.Bonita.Password)
+	if err != nil {
+		return 0, err
+	}
+
+	// processID, err := u.adapter.FindProcessIDByVersion(&token, version)
+	// if err != nil {
+	// 	return "", err
+	// }
+
+	// caseID, err = u.adapter.StartProcess(&token, processID)
+	// if err != nil {
+	// 	return "", err
+	// }
+	return 0, nil
 }
 
 type Usecase interface {
